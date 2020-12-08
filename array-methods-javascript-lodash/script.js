@@ -22,13 +22,21 @@ let chunk = (arr, arg = 1) => {
             if (end > lengthOfArray) {
                 end = lengthOfArray;
             }
-            let chunk = arr.slice(start, end);
+            let chunk = customArraySlice(arr, start, end);
             output.push(chunk);
             start = start + chunkSize;
             end = end + chunkSize;
         }
         return output;
     }
+}
+
+let customArraySlice = (arr, start = 0, end = arr.length) => {
+    let output = [];
+    for (let index = start; index < end; index++) {
+        output.push(arr[index]);
+    }
+    return output;
 }
 
 //Chunks of given array and size are created and returned.
@@ -269,7 +277,7 @@ let flattenDeep = (array, result = []) => {
         return [];
     }
     let head = array[0];
-    let rest = array.slice(1);
+    let rest = customArraySlice(array, 1);
     if (Array.isArray(head)) {
         return flattenDeep(head.concat(rest), result);
     }
